@@ -3,8 +3,17 @@ module lattice
 import partial_order
 import subtype
 
-join : (ty : Type) -> (lt : ty -> ty -> Type) -> (a , b : ty) -> Type
-join ty lt a b = (lub : ty ** ((lt a lub), ((lt b lub) , ((ub : ty) -> (lt a ub) -> (lt b ub) -> (lt lub ub)))))
+----------------------------------------------------------------------------------------------------------------------
+join : (ty : Type) -> (lt : ty -> ty -> Type) -> Type
+join ty lt = (a , b : ty) -> (lub : ty ** ((lt a lub), ((lt b lub) , ((ub : ty) -> (lt a ub) -> (lt b ub) -> (lt lub ub)))))
+
+-----------------------------------------------------------------------------------------------------------------------
+meet : (ty : Type) -> (lt : ty -> ty -> Type) -> Type
+meet ty lt =  (a , b : ty) -> (glb : ty ** ((lt glb a), ((lt glb b) , ((lb : ty) -> (lt lb a) -> (lt lb b) -> (lt lb glb)))))
+
+----------------------------------------------------------------------------------------------------------------------
+is_lattice : (ty : Type) -> (lt : ty -> ty -> Type) -> Type
+is_lattice ty lt = (join ty lt, meet ty lt)
 
 -------------------------------------------------------------------------------------------------------------
 is_lower_bound : (ty : Type) -> (lt : ty -> ty -> Type) -> (sy : Subtype_of ty) -> (bound : ty) -> Type
