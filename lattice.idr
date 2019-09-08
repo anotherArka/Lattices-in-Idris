@@ -12,8 +12,8 @@ meet : (ty : Type) -> (lt : ty -> ty -> Type) -> Type
 meet ty lt =  (a , b : ty) -> (glb : ty ** ((lt glb a), ((lt glb b) , ((lb : ty) -> (lt lb a) -> (lt lb b) -> (lt lb glb)))))
 
 ----------------------------------------------------------------------------------------------------------------------
-is_lattice : (ty : Type) -> (lt : ty -> ty -> Type) -> Type
-is_lattice ty lt = (join ty lt, meet ty lt)
+is_lattice : (ty : Type) -> (lt : ty -> ty -> Type) -> (pf : is_partial_order ty lt) -> Type
+is_lattice ty lt pf = (join ty lt, meet ty lt)
 
 -------------------------------------------------------------------------------------------------------------
 is_lower_bound : (ty : Type) -> (lt : ty -> ty -> Type) -> (sy : Subtype_of ty) -> (bound : ty) -> Type
@@ -38,5 +38,37 @@ is_glb : (ty : Type) -> (lt : ty -> ty -> Type) -> (sy : Subtype_of ty) -> (glb 
 is_glb ty lt sy glb = 
     (is_lower_bound ty lt sy glb,
      (lower_bound : ty) -> (is_lower_bound ty lt sy lower_bound) -> (lt lower_bound glb)) 
+    
+------------------------------------------------------------------------------------------------------------------
+is_join_complete_lattice : (ty : Type) -> (lt : ty -> ty -> Type) ->
+    (pf_partial_order : is_partial_order ty lt) ->
+    (pf_lattice : is_lattice ty lt pf_partial_order) -> Type
+    
+is_join_complete_lattice ty lt pf_partial_order pf_lattice = 
+    (sub : Subtype_of ty) -> (lub_of_sub : ty) ->
+    (is_lub ty lt sub lub_of_sub)    
+
+------------------------------------------------------------------------------------------------------------------
+is_meet_complete_lattice : (ty : Type) -> (lt : ty -> ty -> Type) ->
+    (pf_partial_order : is_partial_order ty lt) ->
+    (pf_lattice : is_lattice ty lt pf_partial_order) -> Type
+    
+is_meet_complete_lattice ty lt pf_partial_order pf_lattice = 
+    (sub : Subtype_of ty) -> (glb_of_sub : ty) ->
+    (is_glb ty lt sub glb_of_sub)
+
+------------------------------------------------------------------------------------------------------------------
+is_complete_lattice : (ty : Type) -> (lt : ty -> ty -> Type) ->
+    (pf_partial_order : is_partial_order ty lt) ->
+    (pf_lattice : is_lattice ty lt pf_partial_order) -> Type
+    
+is_complete_lattice ty lt pf_partial_order pf_lattice = 
+    (is_join_complete_lattice ty lt pf_partial_order pf_lattice,
+     is_meet_complete_lattice ty lt pf_partial_order pf_lattice)
+
+
+
+
+    
      
         
