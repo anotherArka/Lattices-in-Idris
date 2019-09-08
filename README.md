@@ -7,6 +7,8 @@ Trying to prove Knaster-Tarski theorem in Idris
 3. Lattice 
 4. Complete lattice
 5. Monotonic function
+6. An order on the type of monotonic functions on a partial order
 
-## Theorems proven
-
+## Propositions proven
+1. Order on the monotonic functions is reflexive
+2. Order on the monotonic functions is transitive
