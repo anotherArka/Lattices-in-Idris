@@ -29,4 +29,4 @@ empty_subset ty = \x => False
 ||| Proof that everything is true for the empty type
 public export
 subtype_lemma_1 : (ty : Type) -> (p : ty -> Type) -> (subtype_property ty (empty_subset ty) p)
-subtype_lemma_1 ty p a element_of_void = void element_of_void 
+subtype_lemma_1 ty p a element_of_void = void element_of_void

@@ -1,4 +1,4 @@
-module partial_order 
+module partial_order
 
 -----------------------------------------------------------------------
 public export
