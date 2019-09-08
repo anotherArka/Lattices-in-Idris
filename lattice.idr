@@ -13,13 +13,13 @@ join_type ty lt = (a , b : ty) -> (lub : ty **
 -----------------------------------------------------------------------------------------------------------------
 ||| Type of meets of a lattice
 public export
-meet : (ty : Type) -> (lt : ty -> ty -> Type) -> Type
-meet ty lt =  (a , b : ty) -> (glb : ty **
+meet_type : (ty : Type) -> (lt : ty -> ty -> Type) -> Type
+meet_type ty lt =  (a , b : ty) -> (glb : ty **
     ((lt glb a), ((lt glb b) , ((lb : ty) -> (lt lb a) -> (lt lb b) -> (lt lb glb)))))
 
 ------------------------------------------------------------------------------------------------------------------
 is_lattice : (ty : Type) -> (lt : ty -> ty -> Type) -> (pf : is_partial_order ty lt) -> Type
-is_lattice ty lt pf = (join ty lt, meet ty lt)
+is_lattice ty lt pf = (join_type ty lt, meet_type ty lt)
 
 -------------------------------------------------------------------------------------------------------------
 is_lower_bound : (ty : Type) -> (lt : ty -> ty -> Type) -> (sy : Subtype_of ty) -> (bound : ty) -> Type
