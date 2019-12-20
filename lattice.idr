@@ -71,3 +71,5 @@ is_complete_lattice : (ty : Type) -> (lt : ty -> ty -> Type) ->
 is_complete_lattice ty lt pf_partial_order pf_lattice =
     (is_join_complete_lattice ty lt pf_partial_order pf_lattice,
      is_meet_complete_lattice ty lt pf_partial_order pf_lattice)
+     
+-------------------------------------------------------------------------------------------------------------------

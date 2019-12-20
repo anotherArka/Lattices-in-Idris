@@ -2,6 +2,8 @@ module monotonic_functions
 
 import partial_order
 
+interface Monotonic_function (ty : Type) -> (lt : ty -> ty -> Type) where
+    proof_of_monotonicity : (a, b : ty) -> (lt a b) -> (lt (f a) (f b))
 ------------------------------------------------------------------------
 monotonic_function_type : (ty : Type) -> (lt : ty -> ty -> Type) -> Type
 monotonic_function_type ty lt = (f : (ty -> ty) ** (
