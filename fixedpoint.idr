@@ -81,6 +81,24 @@ f_highest_prefixedpoint_is_an_upper_bound_of_prefixedpoints ty lt f pf_partial_o
         pf_pre_a f_a_is_lt_f_lub_pre
     in
     a_is_lt_f_lub_pre
+    
+---------------------------------------------------------------------------------------------------------
+||| If g is the lub of prefixedpoints then g <= f(g)
+highest_prefixedpoint_is_less_than_f_highest_prefixedpoint : (ty : Type) -> (lt : ty -> ty -> Type) -> (f : ty -> ty) -> 
+    (pf_partial_order : is_partial_order ty lt) -> (is_monotonic ty lt f) ->
+    (pf_lattice : is_lattice ty lt pf_partial_order) ->
+    (pf_complete_lattice : is_complete_lattice ty lt pf_partial_order pf_lattice) ->
+    (lt (fst (highest_prefixedpoint_with_pf ty lt f pf_partial_order pf_lattice pf_complete_lattice))
+        (f (fst (highest_prefixedpoint_with_pf ty lt f pf_partial_order pf_lattice pf_complete_lattice))))
+
+highest_prefixedpoint_is_less_than_f_highest_prefixedpoint ty lt f pf_partial_order pf_monotonic pf_lattice pf_complete_lattice = let
+    lub_pre_is_lub = snd (snd (highest_prefixedpoint_with_pf ty lt f pf_partial_order pf_lattice pf_complete_lattice))
+    lub_pre_is_less_than_f_lub_pre = lub_pre_is_lub 
+        (f (fst (highest_prefixedpoint_with_pf ty lt f pf_partial_order pf_lattice pf_complete_lattice))) 
+        (f_highest_prefixedpoint_is_an_upper_bound_of_prefixedpoints ty lt f pf_partial_order pf_monotonic pf_lattice pf_complete_lattice)
+    in        
+    lub_pre_is_less_than_f_lub_pre    
+    
 
 
 ---------------------------------------------------------------------------------------------------------
