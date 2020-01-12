@@ -57,8 +57,7 @@ is_join_complete_lattice : (ty : Type) -> (lt : ty -> ty -> Type) ->
     (pf_lattice : is_lattice ty lt pf_partial_order) -> Type
 
 is_join_complete_lattice ty lt pf_partial_order pf_lattice =
-    (sub : Subtype_of ty) -> (lub_of_sub : ty) ->
-    (is_lub ty lt sub lub_of_sub)
+    (sub : Subtype_of ty) -> (lub_of_sub : ty ** (is_lub ty lt sub lub_of_sub))
 
 ------------------------------------------------------------------------------------------------------------------
 public export

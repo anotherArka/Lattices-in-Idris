@@ -1,9 +1,9 @@
 module subtype 
 
 ------------------------------------------------------------------------------
-||| A subtype of a type ty is given by a function from ty to Bool
+||| A subtype of a type ty is given by a function from ty to Type
 public export
-Subtype_of : (ty : Type) -> Type
+Subtype_of : Type -> Type
 Subtype_of ty = ty -> Type
 
 --------------------------------------------------------------------------

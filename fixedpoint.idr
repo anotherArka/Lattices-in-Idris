@@ -36,19 +36,29 @@ fixedpoint_lemma_1 ty lt pf_partial_order f a pf_pre pf_post = let
     pf_anti_sym a (f a) pf_pre pf_post
     
 -----------------------------------------------------------------------------------------------
+||| the type of prefixpoints of a monotonic function on a partial order
+prefixedpoint_type : (ty : Type) -> (lt : ty -> ty -> Type) -> (f : ty -> ty) -> 
+                   (pf_partial_order : is_partial_order ty lt) -> (is_monotonic ty lt f) -> Type 
+prefixedpoint_type ty lt f pf_partial_order pf_monotonic =
+    (a : ty ** (is_prefixedpoint ty lt f a))
+-----------------------------------------------------------------------------------------------
+||| the subtype of prefixedpoints of a function on a partial order
+prefixedpoint_subtype : (ty : Type) -> (lt : ty -> ty -> Type) -> (f : ty -> ty) -> (Subtype_of ty)
+prefixedpoint_subtype ty lt f a = (is_prefixedpoint ty lt f a)	
 
-||| highest prefixfixedpoint of a monotonic function on a complete lattice
-highest_prefixpoint : (ty : Type) -> (lt : ty -> ty -> Type) -> (f : ty -> ty) -> 
-                      (pf_partial_order : is_partial_order ty lt) -> (is_monotonic ty lt f) ->
+-----------------------------------------------------------------------------------------------
+||| highest prefixfixedpoint of a function on a complete lattice
+highest_prefixedpoint_with_pf : (ty : Type) -> (lt : ty -> ty -> Type) -> (f : ty -> ty) -> 
+                      (pf_partial_order : is_partial_order ty lt) ->
                       (pf_lattice : is_lattice ty lt pf_partial_order) ->
-                      (is_complete_lattice ty lt pf_partial_order pf_lattice) -> ty
+                      (is_complete_lattice ty lt pf_partial_order pf_lattice) -> 
+                      (a : ty ** (is_lub ty lt (prefixedpoint_subtype ty lt f) a))
 
-highest_prefixpoint ty lt f pf_partial_order pf_lattice pf_complete_lattice = let
-    
-
-
+highest_prefixedpoint_with_pf ty lt f pf_partial_order pf_lattice pf_complete_lattice = let
+    pf_join_complete = fst pf_complete_lattice    
+    lub_of_pre = pf_join_complete (prefixedpoint_subtype ty lt f)	
     in
-    ?rhs   
+    lub_of_pre
  
                                   
 
