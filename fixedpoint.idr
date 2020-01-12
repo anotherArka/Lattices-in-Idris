@@ -59,6 +59,38 @@ highest_prefixedpoint_with_pf ty lt f pf_partial_order pf_lattice pf_complete_la
     lub_of_pre = pf_join_complete (prefixedpoint_subtype ty lt f)	
     in
     lub_of_pre
+    
+---------------------------------------------------------------------------------------------------------
+||| If g is the lub of prefixedpoints then f(g) is an upper bound of prefixedpoints
+f_highest_prefixedpoint_is_an_upper_bound_of_prefixedpoints : (ty : Type) -> (lt : ty -> ty -> Type) -> (f : ty -> ty) -> 
+    (pf_partial_order : is_partial_order ty lt) -> (is_monotonic ty lt f) ->
+    (pf_lattice : is_lattice ty lt pf_partial_order) ->
+    (pf_complete_lattice : is_complete_lattice ty lt pf_partial_order pf_lattice) ->
+    (is_upper_bound ty lt (prefixedpoint_subtype ty lt f) 
+        (f (fst (highest_prefixedpoint_with_pf ty lt f pf_partial_order pf_lattice pf_complete_lattice)))) 
+
+f_highest_prefixedpoint_is_an_upper_bound_of_prefixedpoints ty lt f pf_partial_order pf_monotonic pf_lattice pf_complete_lattice a pf_pre_a = let
+    lub_pre_is_upper_bound_of_pre = (fst (snd (highest_prefixedpoint_with_pf ty lt f pf_partial_order pf_lattice pf_complete_lattice)))
+    a_is_lt_lub_pre = lub_pre_is_upper_bound_of_pre a pf_pre_a
+    f_a_is_lt_f_lub_pre = pf_monotonic a 
+        (fst (highest_prefixedpoint_with_pf ty lt f pf_partial_order pf_lattice pf_complete_lattice)) 
+        a_is_lt_lub_pre
+    pf_trans = (fst (snd pf_partial_order))    
+    a_is_lt_f_lub_pre = pf_trans a (f a) 
+        (f (fst (highest_prefixedpoint_with_pf ty lt f pf_partial_order pf_lattice pf_complete_lattice)))
+        pf_pre_a f_a_is_lt_f_lub_pre
+    in
+    a_is_lt_f_lub_pre
+
+
+---------------------------------------------------------------------------------------------------------
+highest_prefixedpoint_is_a_fixedpoint : (ty : Type) -> (lt : ty -> ty -> Type) -> (f : ty -> ty) -> 
+    (pf_partial_order : is_partial_order ty lt) -> (is_monotonic ty lt f) ->
+    (pf_lattice : is_lattice ty lt pf_partial_order) ->
+    (pf_complete_lattice : is_complete_lattice ty lt pf_partial_order pf_lattice) -> 
+    (is_fixedpoint ty lt f (fst (highest_prefixedpoint_with_pf ty lt f pf_partial_order pf_lattice pf_complete_lattice)))     
+    
+    
  
                                   
 
