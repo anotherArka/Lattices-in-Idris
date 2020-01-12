@@ -4,7 +4,7 @@ import partial_order
 import monotonic_functions
 import lattice
 import subtype
-
+		
 is_prefixedpoint : (ty : Type) -> (lt : ty -> ty -> Type) -> (f : ty -> ty) ->
                    (a : ty) -> Type
 is_prefixedpoint ty lt f a = (lt a (f a))
@@ -37,6 +37,20 @@ fixedpoint_lemma_1 ty lt pf_partial_order f a pf_pre pf_post = let
     
 -----------------------------------------------------------------------------------------------
 
+||| highest prefixfixedpoint of a monotonic function on a complete lattice
+highest_prefixpoint : (ty : Type) -> (lt : ty -> ty -> Type) -> (f : ty -> ty) -> 
+                      (pf_partial_order : is_partial_order ty lt) -> (is_monotonic ty lt f) ->
+                      (pf_lattice : is_lattice ty lt pf_partial_order) ->
+                      (is_complete_lattice ty lt pf_partial_order pf_lattice) -> ty
+
+highest_prefixpoint ty lt f pf_partial_order pf_lattice pf_complete_lattice = let
+    
+
+
+    in
+    ?rhs   
+ 
+                                  
 
 
 
