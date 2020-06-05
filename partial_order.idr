@@ -11,7 +11,7 @@ interface Transitive_order (ty : Type) (lt : ty -> ty -> Type) where
 ----------------------------------------------------------------------------------
 public export
 interface Antisymmetric_order (ty : Type) (lt : ty -> ty -> Type) where
-    proof_of_antisymmetry : (a, b : ty) -> (lt a b) -> (lt b a) -> (lt a a)
+    proof_of_antisymmetry : (a, b : ty) -> (lt a b) -> (lt b a) -> (a = a)
 ----------------------------------------------------------------------------------
 public export
 interface (Reflexive_order ty lt, Transitive_order ty lt, Antisymmetric_order ty lt) 
